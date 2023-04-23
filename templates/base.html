@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}My site {% endblock %}</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{{ url_for('home') }}">Main</a></li>
+      <li><a href="{{ url_for('news') }}">News</a></li>
+      <li><a href="{{ url_for('weather') }}">Weather</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact</a></li>
+    </ul>
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
