@@ -5,6 +5,15 @@
 {% endblock %}
 
 {% block content %}
-  <h1>News</h1>
-  <p>News</p>
+  <h1>News in Poland</h1>
+
+  <h2>News</h2>
+  <ul>
+    {% for article in news %}
+      <li>
+        <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

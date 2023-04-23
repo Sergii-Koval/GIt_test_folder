@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-
 import json
+from utils import get_news
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -9,7 +10,9 @@ def home():
 
 @app.route('/news')
 def news():
-    return render_template('news.html')
+    api_key = "4a1faca4363a44a4acfaa1ed621b1d41"
+    news = get_news(api_key)
+    return render_template('news.html', news=news)
 
 @app.route('/weather')
 def weather():
