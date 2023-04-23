@@ -6,5 +6,18 @@
 
 {% block content %}
   <h1>contact</h1>
-  <p></p>
+  <p>email: kovalshmoval@gmail.com</p>
+  <p>phone number: +48570575871 </p>
+  <p>GitHub: https://github.com/Sergii-Koval/</p>
+  <p>LinkedIn: https://www.linkedin.com/in/sergii-koval-689606264/</p>
+
+  <form action="{{ url_for('submit_contact') }}" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" required></textarea>
+    <br>
+    <button type="submit">submit</button>
+  </form>
 {% endblock %}
