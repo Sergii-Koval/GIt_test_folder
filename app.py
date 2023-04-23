@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
 from utils import get_news
+from utils import get_weather_data
 
 app = Flask(__name__)
 
@@ -16,7 +17,10 @@ def news():
 
 @app.route('/weather')
 def weather():
-    return render_template('weather.html')
+    api_key = 'ee3a5b3e2579c460393c5bd95f670bca'
+    cities = ['Warsaw', 'Minsk', 'Batumi']
+    weather_data = get_weather_data(api_key, cities)
+    return render_template('weather.html', weather_data=weather_data)
 
 @app.route('/contact')
 def contact():

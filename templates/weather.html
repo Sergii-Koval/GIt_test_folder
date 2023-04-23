@@ -5,6 +5,16 @@
 {% endblock %}
 
 {% block content %}
-  <h1></h1>
-  <p>Weather</p>
+  <h1>Weather</h1>
+
+  <h2>Weather in :</h2>
+  <ul>
+    {% for city_weather in weather_data %}
+      <li>
+        {{ city_weather.name }}:
+        {{ city_weather.weather[0].description }},
+        Temperature {{ city_weather.main.temp }}°C
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}
