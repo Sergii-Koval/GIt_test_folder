@@ -2,12 +2,18 @@ from flask import Flask, render_template, request, redirect, url_for
 import json
 from utils import get_news
 from utils import get_weather_data
-
+from utils import search_movie
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
+@app.route('/search_movie', methods=['POST'])
+def search():
+    api_key = '71b74252366bfdee35930c6b3e0ada0b'
+    movie_title = request.form['movie_title']
+    movie_results = search_movie(api_key, movie_title)
+    return render_template('index.html', movie_results=movie_results)
 
 @app.route('/news')
 def news():

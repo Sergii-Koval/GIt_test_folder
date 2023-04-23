@@ -26,3 +26,17 @@ def get_weather_data(api_key, cities):
             weather_data.append(response.json())
 
     return weather_data
+
+def search_movie(api_key, query):
+    base_url = "https://api.themoviedb.org/3/search/movie"
+    params = {
+        'api_key': api_key,
+        'query': query,
+        'language': 'en'
+    }
+    response = requests.get(base_url, params=params)
+
+    if response.status_code == 200:
+        return response.json()['results']
+    else:
+        return []
