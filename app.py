@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
-from utils import get_news
-from utils import get_weather_data
-from utils import search_movie
+from utils import get_news, search_movie, get_weather_data
+from datetime import datetime
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    return render_template('index.html', now=now)
+
 @app.route('/search_movie', methods=['POST'])
 def search():
     api_key = '71b74252366bfdee35930c6b3e0ada0b'
