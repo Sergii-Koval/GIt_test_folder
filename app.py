@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import json
+import hashlib
+import os
 from utils import get_news, search_movie, get_weather_data
 from datetime import datetime
 from config import movie_api_key, news_api_key, weather_api_key
@@ -51,6 +53,71 @@ def submit_contact():
 @app.route('/success')
 def success():
     return render_template('success.html')
+
+# Load users data from JSON file
+def load_users():
+    try:
+        with open('users.json', 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+# Save users data to JSON file
+def save_users(users):
+    with open('users.json', 'w') as f:
+        json.dump(users, f)
+
+# Hash a password using SHA-256
+def hash_password(password):
+    return hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = hash_password(password)
+        users = load_users()
+
+        if username in users and hashed_password == users[username]:
+            session['user'] = username
+            flash('You have successfully logged in.', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid username or password.', 'danger')
+            return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = hash_password(password)
+        users = load_users()
+
+        if username not in users:
+            users[username] = hashed_password
+            save_users(users)
+            flash('Your account has been successfully created.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('This username is already taken.', 'danger')
+            return redirect(url_for('register'))
+
+    return render_template('registration.html')
+
+@app.route('/logout')
+def logout():
+    if 'user' in session:
+        session.pop('user')
+        flash('You have successfully logged out.', 'success')
+    return redirect(url_for('home'))
+
+# Configure Flask secret key for sessions
+app.secret_key = os.urandom(24)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
