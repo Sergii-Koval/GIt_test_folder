@@ -1,0 +1,59 @@
+/* Общие стили */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Заголовки */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin: 0 0 1rem;
+}
+
+/* Стили для навигационной панели */
+.navbar {
+  margin-bottom: 2rem;
+}
+
+/* Стили для контейнера */
+.container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Стили для форм */
+form {
+  margin-bottom: 1rem;
+}
+
+form input,
+form textarea {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+}
+
+form button {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #555;
+}
+
+/* Стили для списков */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 1rem;
+}
